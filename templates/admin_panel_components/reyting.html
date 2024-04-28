@@ -1,0 +1,64 @@
+<div class='content'>
+<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+    <label class="btn btn-outline-danger" for="btncheck1">O'qituvchilar</label>
+  
+    <label class="btn btn-outline-danger" for="btncheck2">O'quvchilar</label>
+  
+    <label class="btn btn-outline-danger" for="btncheck3">Guruhlar</label>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">O'qituvchilar</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                O'rni
+              </th>
+              <th>
+                F.I.SH
+              </th>
+              <th>
+                Ball
+              </th>
+              <th>
+                Kurslari soni
+              </th>
+              <th>
+                stars
+              </th>
+            </thead>
+            <tbody>
+              {% for i in son  %}
+              <tr>
+                <td>
+                  {{i}}
+                </td>
+                <td>
+                  Muhammadumar Soliyev
+                </td>
+                <td>
+                  85
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  ⭐⭐⭐⭐⭐
+                </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

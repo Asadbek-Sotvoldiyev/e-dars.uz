@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Profilim
+{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+        {% include 'student_panel_components/sidebar.html' %}
+        <div class="main-panel">
+            {% include 'student_panel_components/navbar.html' %}
+            {% include 'student_panel_components/profile.html' %}
+        </div>
+    </div>
+{% endblock %}

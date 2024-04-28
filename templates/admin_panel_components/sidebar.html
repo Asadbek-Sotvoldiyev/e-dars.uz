@@ -1,0 +1,65 @@
+{% load static %}
+
+<div class="sidebar" data-color="white" data-active-color="danger">
+  <div class="logo">
+    <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+      <div class="logo-image-small">
+        <img src="{{ request.user.image.url }}">
+      </div>
+      <!-- <p>CT</p> -->
+    </a>
+    <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+      {{ request.user.username }}
+      <!-- <div class="logo-image-big">
+        <img src="../assets/img/logo-big.png">
+      </div> -->
+    </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <li class="{% if request.path == '/admin/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:dashboard' %}">
+          <i class="fa-solid fa-house"></i>
+          <p>Bosh sahifa</p>
+        </a>
+      </li>
+      <li class="{% if request.path == '/admin/courses/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:courses' %}">
+          <i class="fa-solid fa-layer-group"></i>
+          <p>Kurslar</p>
+        </a>
+      </li>
+      <li class="{% if request.path == '/admin/teachers/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:teachers' %}">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <p>O'qituvchilar</p>
+        </a>
+      </li>
+      <li class="{% if request.path == '/admin/students/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:students' %}">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <p>O'quvchilar</p>
+        </a>
+      </li>
+      <li class="{% if request.path == '/admin/reyting/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:reyting' %}">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <p>Reyting</p>
+        </a>
+      </li>
+      <li class="{% if request.path == '/admin/moliya/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:moliya' %}">
+          <i class="fa-solid fa-money"></i>
+          <p>Moliya</p>
+        </a>
+      </li>
+      
+      <li class="{% if request.path == '/admin/profile/' %}active{% endif %}">
+        <a href="{% url 'admin_panel:profile' %}">
+          <i class="fa-solid fa-user-shield"></i>
+          <p>Profilim</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

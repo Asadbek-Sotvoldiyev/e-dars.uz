@@ -1,0 +1,69 @@
+<div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Kurslar</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Nomi
+                      </th>
+                      <th>
+                        O'qituvchi
+                      </th>
+                      <th>
+                        O'quvchilar soni
+                      </th>
+                      <th>
+                        Kunlari
+                      </th>
+                      <th>
+                        Vaqti
+                      </th>
+                      <th>
+                        Davomiyligi
+                      </th>
+                      <th class="text-right">
+                        Amallar
+                      </th>
+                    </thead>
+                    <tbody>
+                      {% for course in courses %}
+                      	    <tr>
+                        <td>
+                          {{ course.name }}
+                        </td>
+                        <td>
+                            {{ course.teacher.get_full_name }}
+                        </td>
+                        <td>
+                            {{ course.students.count }}
+                        </td>
+                        <td>
+                          {{ course.lesson_day }}
+                        </td>
+                        <td>
+                          {{ course.lesson_time }}
+                        </td>
+                        <td>
+                          {{ course.duration }}
+                        </td>
+                        <td class="text-right amal">
+                          <i class="fa-solid fa-square-pen update"></i>
+                          <i class="fa-solid fa-trash delete"></i>
+                        </td>
+                      </tr>
+                      {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

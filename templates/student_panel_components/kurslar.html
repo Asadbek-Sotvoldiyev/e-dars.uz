@@ -1,0 +1,69 @@
+
+
+
+<div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Kurslarim</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Kurs nomi
+                    </th>
+                    <th>
+                        Yo'nalishi
+                    </th>
+                    <th>
+                        O'qituvchi
+                    </th>
+                    <th>
+                        Narxi
+                    </th>
+                </thead>
+                <tbody>
+                  
+                {% for cours in courses %}
+                	<tr>
+
+                      {% for key,value in tr.items %}
+                      	{% if cours.id == key %}
+                      		<td>
+                            {{ value }}
+                          </td>
+                      	{% endif %}
+                      {% endfor %}
+
+                      <td>
+                        <a href="{% url 'student_panel:video' cours.id %}">
+                          {{ cours.name }}
+                        </a>
+                      </td>
+                      <td>
+                          {{ cours.category.name }}
+                      </td>
+                      <td>
+                          {{ cours.teacher.get_full_name }}
+                      </td>
+                      <td>
+                          ${{ cours.price }}
+                      </td>
+                </tr>
+                {% endfor %}
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>    

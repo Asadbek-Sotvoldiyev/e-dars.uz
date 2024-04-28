@@ -1,0 +1,45 @@
+{% load static %}
+
+
+
+<div class="sidebar" data-color="white" data-active-color="danger">
+    <div class="logo">
+      <a href="{% url 'teacher_panel:dashboard' %}" class="simple-text logo-mini">
+        <div class="logo-image-small">
+          <img src="{{ request.user.image.url }}">
+        </div>
+        <!-- <p>CT</p> -->
+      </a>
+      <a href="{% url 'teacher_panel:dashboard' %}" class="simple-text logo-normal">
+        {{request.user.username}}
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="{% if request.path == '/teacher/' %}active{% endif %}">
+          <a href="{% url 'teacher_panel:dashboard' %}">
+            <i class="fa-solid fa-house"></i>
+            <p>Bosh sahifa</p>
+          </a>
+        </li>
+        <li class="{% if request.path == '/teacher/kurslar/' %}active{% endif %}">
+          <a href="{% url 'teacher_panel:kurslar' %}">
+            <i class="fa-solid fa-layer-group"></i>
+            <p>Kurslarim</p>
+          </a>
+        </li>
+        <li class="{% if request.path == '/payments/' %}active{% endif %}">
+          <a href="{% url 'teacher_panel:dashboard' %}">
+            <i class="fa-solid fa-star-half-stroke"></i>
+            <p>Reyting</p>
+          </a>
+        </li>
+        <li class="{% if request.path == '/teacher/profile/' %}active{% endif %}">
+          <a href="{% url 'teacher_panel:profile' %}">
+            <i class="fa-solid fa-user"></i>
+            <p>Profilim</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>

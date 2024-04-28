@@ -1,0 +1,63 @@
+{% load static %}
+
+<!-- Page content-->
+<div class="content">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <!-- Featured blog post-->
+            <div class="card mb-4">
+                <a href="#!">
+                    <video width="100%" controls>
+                        <source src="{{lessons.0.video.url}}" type="video/mp4">
+                    </video>                    
+                </a>
+                <div class="card-body">
+                    <div class="small text-muted">{{lessons.0.created_time}}</div>
+                    <h2 class="card-title">{{lessons.0.name}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8" style="width: 850px">
+            <div class="card mb-4">
+                <div class="card-header">Izoh yozish</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        <button class="btn btn-danger mt-4">Yuborish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            <!-- Search widget-->
+            <div class="card mb-4">
+                <div class="card-header">Search</div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Categories widget-->
+            <div class="card mb-4">
+                <div class="card-header">Darslar ( {{lessons.1.course.name}} )</div>
+                <div class="card-body">
+                    <div class="row">
+                        <ul class="list-unstyled mb-0">
+                            {% for lesson in lessons %}
+                            <a href="#" class="ahover p-2 w-100 border border-danger d-flex  flex-column align-items-center br-1 rounded-3 mb-2" style="text-decoration: none; color: orange">
+                                <h2 class="card-title">{{lesson.name}}</h2>
+                                <div class="text-muted">{{lessons.created_time}}</div>
+                            </a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

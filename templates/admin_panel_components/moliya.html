@@ -1,0 +1,169 @@
+<div class='content'>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-5 col-md-4">
+                  <div class="icon-big text-center icon-warning">
+                    <i class="fa-solid fa-money-bill"></i>
+                  </div>
+                </div>
+                <div class="col-7 col-md-8">
+                  <div class="numbers">
+                    <p class="card-category">Jami</p>
+                    <p class="card-title">$24,600<p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <hr>
+              <div class="stats">
+                <i class="fa fa-refresh"></i>
+                Update Now
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-5 col-md-4">
+                  <div class="icon-big text-center icon-warning">
+                    <i class="fa-solid fa-user-plus"></i>
+                  </div>
+                </div>
+                <div class="col-7 col-md-8">
+                  <div class="numbers">
+                    <p class="card-category">Qarzdorlar</p>
+                    <p class="card-title">$880/8 ta<p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <hr>
+              <div class="stats">
+                <i class="fa fa-refresh"></i>
+                Update Now
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-5 col-md-4">
+                  <div class="icon-big text-center icon-warning">
+                    <i class="fa-solid fa-chalkboard-teacher"></i>
+                  </div>
+                </div>
+                <div class="col-7 col-md-8">
+                  <div class="numbers">
+                    <p class="card-category">Kirim</p>
+                    <p class="card-title">$15,780<p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <hr>
+              <div class="stats">
+                <i class="fa fa-refresh"></i>
+                Update Now
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-5 col-md-4">
+                  <div class="icon-big text-center icon-warning">
+                    <i class="fa-solid fa-money-bills"></i>
+                  </div>
+                </div>
+                <div class="col-7 col-md-8">
+                  <div class="numbers">
+                    <p class="card-category">Chiqim</p>
+                    <p class="card-title">$8,820<p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <hr>
+              <div class="stats">
+                <i class="fa fa-refresh"></i>
+                Aprel, 2024
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Transferlar</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Turi
+                  </th>
+                  <th>
+                    Nomi
+                  </th>
+                  <th>
+                    Miqdori
+                  </th>
+                  <th>
+                    Holati
+                  </th>
+                  <th>
+                    status
+                  </th>
+                </thead>
+                <tbody>
+                  {% for i in soni  %}
+                  <tr>
+                    <td>
+                      {{i}}
+                    </td>
+                    <td>
+                      Dars uchun to'lov
+                    </td>
+                    <td>
+                        Asatullayev Diyorbek
+                    </td>
+                    <td>
+                      6{{i}}
+                    </td>
+                    <td>
+                      Muvafaqqiyatli
+                    </td>
+                    <td>
+                        <i class="fa-solid fa-arrow-down"></i> / <i class="fa-solid fa-arrow-up"></i>
+                    </td>
+                  </tr>
+                  {% endfor %}
+    
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	All Courses
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        {% include 'admin_panel_components/sidebar.html' %}
+        <div class="main-panel">
+            {% include 'admin_panel_components/navbar.html' %}
+            {% include 'admin_panel_components/kurslar.html' %}
+        </div>
+    </div>
+{% endblock %}

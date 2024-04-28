@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+    Page not found
+
+{% endblock title %}
+
+
+{% block content %}
+<div class="error">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 text-center">
+                <img src="{% static "img/error-404.png" %}" alt="image 404">
+                    <h2>
+                        <b>404</b> Sahifa topilmadi
+                    </h2>
+                    <p>
+                        Bosh sahifaga tashrif buyuring <br> balki uni toparsiz
+                    </p>
+                <a href="#" class="cmn-btn mt-4">Bosh sahifa</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

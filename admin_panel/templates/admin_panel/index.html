@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Dashboard
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper ">
+        {% include 'admin_panel_components/sidebar.html' %}
+        <div class="main-panel">
+          <!-- Navbar -->
+          {% include 'admin_panel_components/navbar.html' %}
+          <!-- End Navbar -->
+          <div class="content">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                          <i class="fa-solid fa-group"></i>
+                        </div>
+                      </div>
+                      <div class="col-7 col-md-8">
+                        <div class="numbers">
+                          <p class="card-category">Guruhlar soni</p>
+                          <p class="card-title">10 ta<p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                      <i class="fa fa-refresh"></i>
+                      Update Now
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                          <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                      </div>
+                      <div class="col-7 col-md-8">
+                        <div class="numbers">
+                          <p class="card-category">O'quvchilar soni</p>
+                          <p class="card-title">1,345 ta<p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                      <i class="fa fa-refresh"></i>
+                      Update Now
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                          <i class="fa-solid fa-chalkboard-teacher"></i>
+                        </div>
+                      </div>
+                      <div class="col-7 col-md-8">
+                        <div class="numbers">
+                          <p class="card-category">O'qituvchilar soni</p>
+                          <p class="card-title">23 ta<p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                      <i class="fa fa-refresh"></i>
+                      Update Now
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                          <i class="fa-solid fa-money-bills"></i>
+                        </div>
+                      </div>
+                      <div class="col-7 col-md-8">
+                        <div class="numbers">
+                          <p class="card-category">Qarzdorlik</p>
+                          <p class="card-title">150$ / 2 ta<p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                      <i class="fa fa-refresh"></i>
+                      Aprel, 2024
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card ">
+                  <div class="card-header ">
+                    <h5 class="card-title">Statistika</h5>
+                    <p class="card-category">Aprel, 2024</p>
+                  </div>
+                  <div class="card-body ">
+                    <canvas id="chartHours" width="400" height="100"></canvas>
+                  </div>
+                  <div class="card-footer ">
+                    <hr>
+                    <div class="legend">
+                      <i class="fa-solid fa-circle" style="color: #FCC468;"></i> Umumiy
+                      <i class="fa-solid fa-circle" style="color: #F17E5D;"></i> Yangi o'quvchilar
+                      <i class="fa-solid fa-circle" style="color: #63E6BE;"></i> Bitiruvchilar
+                    </div>
+                    <div class="stats">
+                      <i class="fa fa-history"></i> Updated 3 minutes ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card ">
+                  <div class="card-header ">
+                    <h5 class="card-title">Yo'nalishlar bo'yicha</h5>
+                    <p class="card-category">O'quvchilarning qiziqishlari</p>
+                  </div>
+                  <div class="card-body ">
+                    <canvas id="chartEmail"></canvas>
+                  </div>
+                  <div class="card-footer ">
+                    <div class="legend">
+                      <i class="fa fa-circle text-primary"></i> Dasturlash
+                      <i class="fa fa-circle text-warning"></i> Marketing
+                      <i class="fa fa-circle text-danger"></i> Grafik dizayn
+                      <i class="fa fa-circle text-gray"></i> Chet tillari
+                    </div>
+                    <hr>
+                    <div class="stats">
+                      <i class="fa fa-calendar"></i> Aprel, 2024
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card card-chart">
+                  <div class="card-header">
+                    <h5 class="card-title">Natijalar</h5>
+                    <p class="card-category">Guruhning umumiy natijalari</p>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="speedChart" width="400" height="100"></canvas>
+                  </div>
+                  <div class="card-footer">
+                    <div class="chart-legend">
+                      <i class="fa fa-circle text-info"></i> Imtihonda
+                      <i class="fa fa-circle text-warning"></i> Oy davomida
+                    </div>
+                    <hr />
+                    <div class="card-stats">
+                      <i class="fa fa-group"></i> Guruh: 
+                      <select name="kurslar" id="kurslar">
+                        <option value="1">Python Django ED1</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="footer footer-black  footer-white ">
+            <div class="container-fluid">
+              <div class="row">
+                <nav class="footer-nav">
+                  <ul>
+                    <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
+                    <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
+                    <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
+                  </ul>
+                </nav>
+                <div class="credits ml-auto">
+                  <span class="copyright">
+                    © <script>
+                      document.write(new Date().getFullYear())
+                    </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+                  </span>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+    </div>
+
+{% endblock %}
+
+
