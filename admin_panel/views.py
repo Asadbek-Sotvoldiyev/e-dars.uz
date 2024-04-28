@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views.generic import ListView, View
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, View, CreateView
 from .models import Course, User, TEACHER, STUDENT, ADMIN
 from .forms import AdminProfileForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
@@ -81,3 +81,25 @@ class AdminLoginView(View):
                 elif user.user_role == TEACHER:
                     return redirect('teacher_panel:dashboard')
         return render(request, 'admin_panel/login.html', {'form': form})
+
+
+class AddCourseView(CreateView):
+    model = Course
+    template_name = 'admin_panel/add_course.html'
+    success_url = reverse_lazy('admin_panel:courses')
+    fields = ('name', 'lesson_day', 'lesson_time', 'category', 'teacher', 'students', 'price', 'duration')
+
+    extra_context = {
+        'title': "Kurs qo'shish"
+    }
+
+
+class AddTeacherView(CreateView):
+    model = User
+    template_name = 'admin_panel/add_teacher.html'
+    success_url = reverse_lazy('admin_panel:teachers')
+    fields = ('first_name', 'last_name', 'username', 'image', 'phone', 'user_role', 'birthday', 'gender')
+
+    extra_context = {
+        'title': "O'qituvchi qo'shish"
+    }

@@ -14,6 +14,11 @@ class TeacherCourses(IsTeacherMixin, View):
         return render(request, 'teacher_panel/kurslar.html')
 
 
+class TeacherLesson(IsTeacherMixin, View):
+    def get(self, request):
+        return render(request, 'teacher_panel/lesson.html')
+
+
 class TeacherProfileView(IsTeacherMixin, View):
     def get(self, request):
         form = TeacherProfileForm(instance=request.user)

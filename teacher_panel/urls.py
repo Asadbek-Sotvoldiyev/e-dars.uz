@@ -7,4 +7,5 @@ urlpatterns = [
     path('', TeacherDashboard.as_view(), name='dashboard'),
     path('kurslar/', TeacherCourses.as_view(), name='kurslar'),
     path('profile/', TeacherProfileView.as_view(), name='profile'),
+    path('lesson/', TeacherLesson.as_view(), name='lesson'),
 ]
