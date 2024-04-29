@@ -1,5 +1,5 @@
 from django import forms
-from admin_panel.models import User
+from admin_panel.models import User, Lesson
 from django.core.exceptions import ValidationError
 
 
@@ -20,3 +20,9 @@ class TeacherProfileForm(forms.ModelForm):
         if User.objects.filter(email=email).exists() and email != self.instance.email:
             raise ValidationError("Email already exists")
         return email
+
+
+class LessonForm(forms.ModelForm):
+    class Meta:
+        model = Lesson
+        fields = '__all__'

@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (CourseListView, TeacherListView, StudentListView,
                     AdminProfileView, AdminLoginView, AdminReytingView,
-                    AdminMoliyaView, AdminDashboardView, AddCourseView, AddTeacherView)
+                    AdminMoliyaView, AdminDashboardView, AddCourseView, AddTeacherView,
+                    logout_user, AddStudentView)
 
 app_name = 'admin_panel'
 urlpatterns = [
@@ -15,4 +16,6 @@ urlpatterns = [
     path('moliya/', AdminMoliyaView.as_view(), name='moliya'),
     path('add-course/', AddCourseView.as_view(), name='add_course'),
     path('add-teacher/', AddTeacherView.as_view(), name='add_teacher'),
+    path('add-student/', AddStudentView.as_view(), name='add_student'),
+    path('logout/', logout_user, name='logout'),
 ]

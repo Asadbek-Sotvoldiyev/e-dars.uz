@@ -1,12 +1,9 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import ListView, View, CreateView
 from .models import Course, User, TEACHER, STUDENT, ADMIN
-from .forms import AdminProfileForm, LoginForm
+from .forms import AdminProfileForm, LoginForm, UserForm
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
 from .mixins import IsAdminMixin
 
 
@@ -94,12 +91,64 @@ class AddCourseView(CreateView):
     }
 
 
-class AddTeacherView(CreateView):
-    model = User
-    template_name = 'admin_panel/add_teacher.html'
-    success_url = reverse_lazy('admin_panel:teachers')
-    fields = ('first_name', 'last_name', 'username', 'image', 'phone', 'user_role', 'birthday', 'gender')
+class AddTeacherView(IsAdminMixin, View):
+    def get(self, reqeust):
+        form = UserForm()
+        return render(reqeust, 'admin_panel/add_teacher.html', {'form': form, 'title': "O'qituvchi qo'shish"})
 
-    extra_context = {
-        'title': "O'qituvchi qo'shish"
-    }
+    def post(self, request):
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            phone = form.cleaned_data['phone']
+            gender = form.cleaned_data['gender']
+
+            teacher = User.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                user_role=TEACHER,
+                phone=phone,
+                gender=gender
+            )
+            teacher.set_password(phone[1:])
+            teacher.save()
+            return redirect(reverse_lazy('admin_panel:teachers'))
+
+        return render(request, 'admin_panel/add_teacher.html', {'form': form, 'title': "O'qituvchi qo'shish"})
+
+
+class AddStudentView(IsAdminMixin, View):
+    def get(self, reqeust):
+        form = UserForm()
+        return render(reqeust, 'admin_panel/add_student.html', {'form': form, 'title': "O'quvchi qo'shish"})
+
+    def post(self, request):
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            phone = form.cleaned_data['phone']
+            gender = form.cleaned_data['gender']
+
+            teacher = User.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                user_role=STUDENT,
+                phone=phone,
+                gender=gender
+            )
+            teacher.set_password(phone[1:])
+            teacher.save()
+            return redirect(reverse_lazy('admin_panel:students'))
+
+        return render(request, 'admin_panel/add_student.html', {'form': form, 'title': "O'quvchi qo'shish"})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('admin_panel:login')

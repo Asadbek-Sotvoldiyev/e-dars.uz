@@ -30,23 +30,13 @@ class LoginForm(forms.Form):
 
 
 class UserForm(forms.ModelForm):
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'image', 'phone', 'user_role', 'birthday', 'gender')
+        fields = ('first_name', 'last_name', 'username', 'phone', 'gender')
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'image': forms.FileInput(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
-            'user_role': forms.Select(attrs={'class': 'form-control'}),
-            'birthday': forms.DateInput(attrs={'class': 'form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
         }
-
-    def save(self, commit=True):
-        user = super(UserForm, self).save(commit=False)
-        user.set_password(''.join([str(random.randint(0, 10000) % 10) for _ in range(4)]))
-        if commit:
-            user.save()
-        return user

@@ -27,25 +27,43 @@
                     <th>
                         Dars kunlari
                     </th>
+                    <th>
+                        Dars vaqti
+                    </th>
                 </thead>
                 <tbody>
-                  <tr>
+
+                {% for cours in courses %}
+                	<tr>
+
+                      {% for key,value in tr.items %}
+                      	{% if cours.id == key %}
+                      		<td>
+                            {{ value }}
+                          </td>
+                      	{% endif %}
+                      {% endfor %}
+
+                      <td>
+                        <a href="{% url 'teacher_panel:lesson' cours.id %}">
+                          {{ cours.name }}
+                        </a>
+                      </td>
+                      <td>
+                          {{ cours.category.name }}
+                      </td>
+                      <td>
+                          {{ cours.student_count }}
+                      </td>
+                      <td>
+                          {{ cours.lesson_day }}
+                      </td>
                     <td>
-                      1
-                    </td>
-                    <td>
-                        Backend Python Django (Standard) 
-                    </td>
-                    <td>
-                        Dasturlash
-                    </td>
-                    <td>
-                        16
-                    </td>
-                    <td>
-                        Du-Chor-Ju  08:00 - 10:00
-                    </td>
+                          {{ cours.lesson_time }}
+                      </td>
                 </tr>
+                {% endfor %}
+
 
                 </tbody>
               </table>
