@@ -1,6 +1,4 @@
 from django.views.generic import ListView, View
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from .forms import StudentProfileForm
 from admin_panel.models import STUDENT

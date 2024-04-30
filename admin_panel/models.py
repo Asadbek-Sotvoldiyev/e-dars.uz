@@ -80,10 +80,5 @@ class Lesson(BaseModel, models.Model):
         return self.name
 
 
-
-
-    
-    
-
-
-
+# class Payments(BaseModel, models.Model):
+#     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')

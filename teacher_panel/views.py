@@ -1,9 +1,8 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView
-
 from admin_panel.models import Lesson, Course
 from .forms import *
 from .mixins import IsTeacherMixin
