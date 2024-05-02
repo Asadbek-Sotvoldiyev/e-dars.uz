@@ -1,165 +1,72 @@
-<div class='content'>
-    <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-body ">
-              <div class="row">
-                <div class="col-5 col-md-4">
-                  <div class="icon-big text-center icon-warning">
-                    <i class="fa-solid fa-money-bill"></i>
-                  </div>
-                </div>
-                <div class="col-7 col-md-8">
-                  <div class="numbers">
-                    <p class="card-category">Jami</p>
-                    <p class="card-title">$24,600<p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer ">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-refresh"></i>
-                Update Now
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-body ">
-              <div class="row">
-                <div class="col-5 col-md-4">
-                  <div class="icon-big text-center icon-warning">
-                    <i class="fa-solid fa-user-plus"></i>
-                  </div>
-                </div>
-                <div class="col-7 col-md-8">
-                  <div class="numbers">
-                    <p class="card-category">Qarzdorlar</p>
-                    <p class="card-title">$880/8 ta<p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer ">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-refresh"></i>
-                Update Now
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-body ">
-              <div class="row">
-                <div class="col-5 col-md-4">
-                  <div class="icon-big text-center icon-warning">
-                    <i class="fa-solid fa-chalkboard-teacher"></i>
-                  </div>
-                </div>
-                <div class="col-7 col-md-8">
-                  <div class="numbers">
-                    <p class="card-category">Kirim</p>
-                    <p class="card-title">$15,780<p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer ">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-refresh"></i>
-                Update Now
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-body ">
-              <div class="row">
-                <div class="col-5 col-md-4">
-                  <div class="icon-big text-center icon-warning">
-                    <i class="fa-solid fa-money-bills"></i>
-                  </div>
-                </div>
-                <div class="col-7 col-md-8">
-                  <div class="numbers">
-                    <p class="card-category">Chiqim</p>
-                    <p class="card-title">$8,820<p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer ">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-refresh"></i>
-                Aprel, 2024
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    
+<div class='content'> 
+  <div class="content">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">Transferlar</h4>
+            <a href="{% url 'admin_panel:check' %}" class="btn btn-outline-danger">To'lov qo'shish</a>
+            <h4 class="card-title">To'lovlar</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <th>
-                    #
-                  </th>
-                  <th>
-                    Turi
-                  </th>
-                  <th>
-                    Nomi
-                  </th>
-                  <th>
-                    Miqdori
-                  </th>
-                  <th>
-                    Holati
-                  </th>
-                  <th>
-                    status
-                  </th>
+              <table class="table table-striped">
+                <thead class="thead-primary">
+                  <tr>
+                    <th>#</th>
+                    <th>Chek raqami</th>
+                    <th>O'quvchi</th>
+                    <th>Miqdori</th>
+                    <th>Holati</th>
+                    <th>To'lov turi</th>
+                    <th>Sana</th>
+                    <th>Vaqt</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {% for i in soni  %}
-                  <tr>
+                  {% for payment in payments %}
+                  <tr data-toggle="modal" data-target="#exampleModal{{ payment.id }}">  
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ payment.check_number }}</td>
+                    <td>{{ payment.student }}</td>
+                    <td>$ {{ payment.amount }}</td>
                     <td>
-                      {{i}}
+                      {{ payment.status }}
                     </td>
-                    <td>
-                      Dars uchun to'lov
-                    </td>
-                    <td>
-                        Asatullayev Diyorbek
-                    </td>
-                    <td>
-                      6{{i}}
-                    </td>
-                    <td>
-                      Muvafaqqiyatli
-                    </td>
-                    <td>
-                        <i class="fa-solid fa-arrow-down"></i> / <i class="fa-solid fa-arrow-up"></i>
-                    </td>
+                    <td>{{ payment.payment_type }}</td>
+                    <td>{{ payment.created_time.date }}</td>
+                    <td>{{ payment.created_time.time }}</td>
+
+                    <div class="modal fade" id="exampleModal{{ payment.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Check raqami:  #{{ payment.check_number }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><br>O'quvchi:  {{ payment.student.first_name }} {{ payment.student.last_name }}</h5>
+                          </div>
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><br>Miqdor:  ${{ payment.amount }}</h5>
+                          </div>
+                          <div class="modal-body overflow" style='height:400px; width: 100%; overflow-y: scroll; overflow-x: scroll;'>
+                            <img src="{{ payment.check_img.url }}" alt="" height='350px' >
+                          </div>
+                          <div class="modal-footer">
+                            {% if payment.status == 'Kutayotgan' %}
+                            <a href="{% url 'admin_panel:check_confirm' payment.check_number %}" type="button" class="btn btn-primary">Tasdiqlash</a>
+                            <a href="{% url 'admin_panel:check_unconfirm' payment.check_number %}" type="button" class="btn btn-danger">Qaytarish</a>
+                            {% endif %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </tr>
                   {% endfor %}
-    
                 </tbody>
               </table>
             </div>
@@ -167,3 +74,5 @@
         </div>
       </div>
     </div>
+  </div>  
+</div>

@@ -9,6 +9,7 @@ urlpatterns = [
     path('reyting/',  StudentReytingView.as_view(), name='reyting'),
     path('profile/',  StudentProfileView.as_view(), name='profile'),
     path('message/',  StudentMessageView.as_view(), name='message'),
-    path('video/<int:course_id>/', StudentDarsView.as_view(), name="video"),
+    path('kurslar/video/<int:course_id>/<int:video_id>/', StudentDarsView.as_view(), name="video"),
+    path('payments/check/', StudentCheck.as_view(), name='check'),
     path('page-404/', Http404View.as_view(), name='page_404'),
 ]

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, View, CreateView
-from .models import Course, User, TEACHER, STUDENT, ADMIN
-from .forms import AdminProfileForm, LoginForm, UserForm
+from .models import Course, User, TEACHER, STUDENT, ADMIN, Payments, PAID, UNCORFIRMED
+from .forms import AdminProfileForm, LoginForm, UserForm, PaymentsForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import IsAdminMixin
-
+import random
 
 class AdminDashboardView(IsAdminMixin, View):
     def get(self, request):
@@ -19,7 +19,8 @@ class AdminReytingView(IsAdminMixin, View):
 
 class AdminMoliyaView(IsAdminMixin, View):
     def get(self, request):
-        return render(request, 'admin_panel/moliya.html', {'title' : "Moliya"})
+        payments = Payments.objects.all()
+        return render(request, 'admin_panel/moliya.html', {'title' : "Moliya", 'payments': payments})
 
 
 class CourseListView(IsAdminMixin, ListView):
@@ -148,6 +149,61 @@ class AddStudentView(IsAdminMixin, View):
 
         return render(request, 'admin_panel/add_student.html', {'form': form, 'title': "O'quvchi qo'shish"})
 
+
+class StudentPayments(IsAdminMixin, View):
+    def get(self, request):
+        payments = Payments.objects.all()
+        form = PaymentsForm(request.POST, request.FILES, instance=request.user)
+        return render(request, 'admin_panel/send_check.html', {'form' : form, 'title' : 'To\'lov qilish', 'payments' : payments})
+    
+    def post(self, request):
+        payments = Payments.objects.all() 
+        form = PaymentsForm(request.POST, request.FILES)
+        if form.is_valid():
+            check_img = request.FILES.get('check_img')
+            student = request.POST.get('student')
+            student = User.objects.get(id=student)
+            amount = request.POST.get('amount')
+            if check_img:
+                payment = Payments.objects.create(
+                    amount = amount,
+                    check_number = "".join([str(random.randint(0, 10000) % 10) for _ in range(4)]),
+                    student = student,
+                    check_img=check_img,
+                    status=PAID
+                )
+                payment.save()
+                return redirect(reverse_lazy('admin_panel:moliya'))
+            else:
+                form.add_error('check_img', 'Iltimos, tasdiqlovchi rasmni yuklang')
+        return render(request, 'admin_panel/send_check.html', {'form' : form, 'title' : 'Cheklar', 'payments' : payments})
+
+
+class PaymentConfirm(IsAdminMixin, View):
+    def get(self, request, check_number):
+        try:
+            payment = Payments.objects.get(check_number=check_number)
+        except Payments.DoesNotExist:
+            return redirect('admin_panel:moliya')  
+        
+        payment.status = PAID
+        payment.save()
+
+        return redirect('admin_panel:moliya')
+   
+   
+class PaymentUnconfirm(IsAdminMixin, View):
+    def get(self,request,check_number):
+        try:
+            payment = Payments.objects.get(check_number=check_number)
+        except Payments.DoesNotExist:
+            return redirect('admin_panel:moliya')  
+        
+        payment.status = UNCORFIRMED
+        payment.save()
+
+        return redirect('admin_panel:moliya')     
+        
 
 def logout_user(request):
     logout(request)

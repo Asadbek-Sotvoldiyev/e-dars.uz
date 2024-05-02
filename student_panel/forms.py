@@ -1,5 +1,5 @@
 from django import forms
-from admin_panel.models import User
+from admin_panel.models import User, Payments, PaymentsCheck
 from django.core.exceptions import ValidationError
 
 
@@ -20,3 +20,13 @@ class StudentProfileForm(forms.ModelForm):
         if User.objects.filter(email=email).exists() and email != self.instance.email:
             raise ValidationError("Email already exists")
         return email
+    
+    
+class PaymentsCheckForm(forms.ModelForm):
+    amount = forms.FloatField(label=("Miqdori"), widget=forms.NumberInput(attrs={'min': 1}), required=False)
+    check_img = forms.ImageField(label= "Chek rasmi", widget=forms.FileInput(), required=False)
+       
+    
+    class Meta:
+        model = PaymentsCheck  
+        fields = ('check_img',) 

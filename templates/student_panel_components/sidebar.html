@@ -22,13 +22,13 @@
             <p>Bosh sahifa</p>
           </a>
         </li>
-        <li class="{% if request.path == '/kurslar/' or request.path == '/video/' %}active{% endif %}">
+        <li class="{% if request.path == '/kurslar/' or request.path == '/kurslar/video/' %}active{% endif %}">
           <a href="{% url 'student_panel:kurslar' %}">
             <i class="fa-solid fa-layer-group"></i>
             <p>Kurslarim</p>
           </a>
         </li>
-        <li class="{% if request.path == '/payments/' %}active{% endif %}">
+        <li class="{% if request.path == '/payments/' or request.path == '/payments/check/' %}active{% endif %}">
           <a href="{% url 'student_panel:payments' %}">
             <i class="fa-solid fa-money-check"></i>
             <p>To'lovlarim</p>

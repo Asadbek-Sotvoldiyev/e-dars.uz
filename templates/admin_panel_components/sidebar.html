@@ -43,13 +43,13 @@
       </li>
       <li class="{% if request.path == '/admin/reyting/' %}active{% endif %}">
         <a href="{% url 'admin_panel:reyting' %}">
-          <i class="fa-solid fa-graduation-cap"></i>
+          <i class="fa-solid fa-star"></i>
           <p>Reyting</p>
         </a>
       </li>
-      <li class="{% if request.path == '/admin/moliya/' %}active{% endif %}">
+      <li class="{% if request.path == '/admin/payments/' or request.path == '/admin/payments/check/' %}active{% endif %}">
         <a href="{% url 'admin_panel:moliya' %}">
-          <i class="fa-solid fa-money"></i>
+          <i class="fa-solid fa-money-bills"></i>
           <p>Moliya</p>
         </a>
       </li>

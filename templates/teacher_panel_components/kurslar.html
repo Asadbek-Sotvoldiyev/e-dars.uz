@@ -36,16 +36,12 @@
                 {% for cours in courses %}
                 	<tr>
 
-                      {% for key,value in tr.items %}
-                      	{% if cours.id == key %}
-                      		<td>
-                            {{ value }}
-                          </td>
-                      	{% endif %}
-                      {% endfor %}
+                      <td>
+                        {{forloop.counter}}
+                      </td>
 
                       <td>
-                        <a href="{% url 'teacher_panel:lesson' cours.id %}">
+                        <a href="{% url 'teacher_panel:lesson' cours.id 0 %}">
                           {{ cours.name }}
                         </a>
                       </td>

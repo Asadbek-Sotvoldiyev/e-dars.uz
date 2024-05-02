@@ -1,7 +1,7 @@
 from random import random
 
 from django import forms
-from .models import User
+from .models import User, Payments
 from django.core.exceptions import ValidationError
 
 
@@ -40,3 +40,12 @@ class UserForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
         }
+  
+        
+class PaymentsForm(forms.ModelForm):
+    amount = forms.FloatField(label=("Miqdori"), widget=forms.NumberInput(attrs={'min': 1}), required=False)
+    check_img = forms.ImageField(label= "Chek rasmi", widget=forms.FileInput(), required=False)
+    
+    class Meta:
+        model = Payments  
+        fields = ('student', 'check_img',) 

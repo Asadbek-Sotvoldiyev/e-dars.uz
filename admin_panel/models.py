@@ -1,4 +1,4 @@
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -7,6 +7,8 @@ MALE, FEMALE = ('male', 'female')
 ODD_DAYS, EVEN_DAYS = ('Du-Chor-Ju', 'Se-Pay-Shan')
 MORNING, AFTERNOON, EVENING = ('8:00 - 10:00', '13:00 - 15:00', '16:00 - 18:00')
 FOUNDATION, STANDART, RESULT = ('5 oy', '8 oy', '6 oy')
+WAIT,  UNCORFIRMED, PAID = ('Kutayotgan', 'Qaytarilgan', 'Tasdiqlangan')
+CASHE, CARD = ('Naqd pul', 'Kartadan')
 
 
 class BaseModel(models.Model):
@@ -80,5 +82,38 @@ class Lesson(BaseModel, models.Model):
         return self.name
 
 
-# class Payments(BaseModel, models.Model):
-#     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
+class Payments(BaseModel, models.Model):
+    TYPE = (
+        (CASHE, CASHE),
+        (CARD, CARD),
+    )
+    STATUS = (
+        (WAIT, WAIT),
+        (UNCORFIRMED, UNCORFIRMED),
+        (PAID, PAID),
+    )
+    check_number = models.CharField(max_length=4, null=True, blank=True)
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
+    amount = models.FloatField(null=False, blank=False)
+    payment_type = models.CharField(max_length=50, null=False, blank=False, choices=TYPE, default=CARD)
+    check_img = models.ImageField(upload_to='checks/', blank=True, null=True)
+
+    
+    status = models.CharField(null=False, blank=False, choices=STATUS, default=WAIT)
+    
+    def __str__(self):
+        return f"Id: {self.id}; Student: {self.student.first_name} {self.student.last_name}"
+    
+    
+class PaymentsCheck(BaseModel, models.Model):
+    STATUS = (
+        (WAIT,WAIT),
+        (PAID,PAID),
+    )
+    check_number = models.CharField(max_length=4, null=True, blank=True)
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='paymentsCheck')
+    check_img = models.ImageField(upload_to='checks/', blank=False, null=False)
+    status = models.CharField(max_length=30, blank=False, null=False, choices=STATUS, default=WAIT)
+
+    def __str__(self):
+        return f"{self.id}: {self.student.first_name} {self.student.last_name} ({self.status})"

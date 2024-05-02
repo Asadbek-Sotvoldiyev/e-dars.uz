@@ -13,27 +13,6 @@ class TeacherDashboard(IsTeacherMixin, View):
         return render(request, 'teacher_panel/index.html')
 
 
-
-
-
-class TeacherLesson(IsTeacherMixin, ListView):
-    model = Lesson
-    template_name = 'teacher_panel/lesson.html'
-    context_object_name = 'lessons'
-
-    def get_queryset(self):
-        course_id = self.kwargs['course_id']
-        return Lesson.objects.filter(course_id=course_id)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        course_id = self.kwargs['course_id']
-        context['title'] = "Videolar"
-        context['course_id'] = course_id
-        return context
-
-
-
 class TeacherCourses(IsTeacherMixin, View):
     def get(self, request):
         courses = Course.objects.annotate(student_count=Count('students'))
@@ -72,6 +51,31 @@ class AddLessonView(IsTeacherMixin, View):
         form = LessonForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('teacher_panel:lesson', kwargs={'course_id':course_id}))
+            return redirect(reverse('teacher_panel:lesson', kwargs={'course_id':course_id, 'video_id':0}))
 
         return render(request, 'teacher_panel/add_lesson.html', {'form': form, 'title': "Dars qo'shish", 'course_id':course_id})
+    
+    
+class TeacherDarsView(IsTeacherMixin, ListView):
+    model = Lesson
+    template_name = 'teacher_panel/lesson.html'
+    context_object_name = 'lessons'
+    
+    def get_queryset(self):
+        course_id = self.kwargs['course_id']
+        lessons = Lesson.objects.filter(course_id=course_id)
+            
+        return lessons  # faqat lessons ro'yxatini qaytarish kerak
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course_id = self.kwargs['course_id']
+        video_id = self.kwargs['video_id']
+        lessons = Lesson.objects.filter(course_id=course_id)
+        video = lessons[0]
+        if not video_id == 0:
+            video = lessons.get(id=video_id)
+        context['title'] = "Videolar"
+        context['video'] = video
+        context['course_id'] = course_id
+        return context
