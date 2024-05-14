@@ -1,15 +1,24 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, View, CreateView
-from .models import Course, User, TEACHER, STUDENT, ADMIN, Payments, PAID, UNCORFIRMED
-from .forms import AdminProfileForm, LoginForm, UserForm, PaymentsForm
+from .models import Course, User, TEACHER, STUDENT, ADMIN, Payments, PAID, UNCORFIRMED, Lesson
+from .forms import AdminProfileForm, LoginForm, UserForm, PaymentsForm, AddStudentToCourseForm
 from django.contrib.auth import authenticate, login, logout
 from .mixins import IsAdminMixin
 import random
 
 class AdminDashboardView(IsAdminMixin, View):
+    course_count = (Course.objects.all()).count()
+    student_count = (User.objects.filter(user_role=STUDENT)).count()
+    teacher_count = (User.objects.filter(user_role=TEACHER)).count()
+    data = {
+        'course_count': course_count,
+        'student_count': student_count,
+        'teacher_count': teacher_count,
+        'title': "Bosh sahifa",
+    }
     def get(self, request):
-        return render(request, 'admin_panel/index.html', {'title': "Bosh sahifa"})
+        return render(request, 'admin_panel/index.html', {'title': "Bosh sahifa"} )
 
 
 class AdminReytingView(IsAdminMixin, View):
@@ -204,6 +213,62 @@ class PaymentUnconfirm(IsAdminMixin, View):
 
         return redirect('admin_panel:moliya')     
         
+
+def lesson_detail_video(request):
+    return render(request, 'admin_panel/lesson_detail_video.html', {'title': 'Lesson Details Video', 'son': range(0,10 )})
+
+
+def lesson_detail_students(request):
+    return render(request, 'admin_panel/lesson_detail_students.html', {'title': 'Lesson Details Students', 'son': range(0,10 )})
+
+
+class AdminDarsView(IsAdminMixin, ListView):
+    model = Lesson
+    template_name = 'admin_panel/lesson_detail_video.html'
+    context_object_name = 'lessons'
+    
+    def get_queryset(self):
+        course_id = self.kwargs['course_id']
+        lessons = Lesson.objects.filter(course_id=course_id)
+            
+        return lessons
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course_id = self.kwargs['course_id']
+        context['title'] = "Videolar"
+        context['course_id'] = course_id
+        return context
+    
+    
+class AdminStudentsView(IsAdminMixin, ListView):
+    model = Course
+    template_name = 'admin_panel/lesson_detail_students.html'
+    context_object_name = 'students'
+    
+    def get_queryset(self):
+        course_id = self.kwargs['course_id']
+        course = Course.objects.prefetch_related('students').get(id=course_id)
+        students = course.students.all().prefetch_related()
+        
+        return students
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course_id = self.kwargs['course_id']
+        context['title'] = "O'quvchilar"
+        context['course_id'] = course_id
+        return context
+    
+
+
+class AddStudentToCourse(IsAdminMixin, View):
+    def get(self, request):
+        form = AddStudentToCourseForm()
+        return render(request, 'admin_panel/addStudentToCourse.html',{'form': form})
+    
+
+
 
 def logout_user(request):
     logout(request)

@@ -59,6 +59,7 @@ class Course(BaseModel, models.Model):
         (STANDART, STANDART),
         (RESULT, RESULT),
     )
+
     
     name = models.CharField(max_length=50)
     lesson_day = models.CharField(max_length=15, choices=DAYS)

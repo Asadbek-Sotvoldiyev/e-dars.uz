@@ -1,0 +1,78 @@
+<div class='content'>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <a href="{% url "admin_panel:detail_video" course_id %}" class="btn btn-outline-danger active mr-3" for="btncheck3">Videolar</a>
+
+        <a href="{% url "admin_panel:detail_students" course_id %}" class="btn btn-outline-danger" for="btncheck2">O'quvchilar</a>
+    </div>
+    
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Videolar</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Guruh
+                  </th>
+                  <th>
+                    Mavzu
+                  </th>
+                  <th>
+                    Sana
+                  </th>
+                </thead>
+                <tbody>
+                  {% for lesson in lessons  %}
+                  <tr data-toggle="modal" data-target="#exampleModal{{ lesson.id }}" style="cursor:pointer;">
+                    <td>
+                      {{ forloop.counter }}
+                    </td>
+                    <td>
+                      {{ lesson.course.name }}
+                    </td>
+                    <td>
+                      {{ lesson.name }}
+                    </td>
+                    <td>
+                        {{ lesson.created_time.date }}
+                    </td>
+
+                    <div class="modal fade" id="exampleModal{{ lesson.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Mavzu:  {{ lesson.name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body overflow" style='height:400px; overflow-y: scroll; overflow-x: scroll;'>
+                            <video width="100%" controls>
+                              <source src="{{lesson.video.url}}" type="video/mp4">
+                            </video>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </tr>
+                  {% endfor %}
+    
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

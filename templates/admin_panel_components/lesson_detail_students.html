@@ -1,0 +1,72 @@
+<div class='content'>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <a href="{% url "admin_panel:detail_video" course_id %}" class="btn btn-outline-danger  mr-3" for="btncheck3">Videolar</a>
+
+        <a href="{% url "admin_panel:detail_students" course_id %}" class="btn btn-outline-danger active" for="btncheck2">O'quvchilar</a>
+    </div>
+    
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <a href="{% url 'admin_panel:add_student_to_course' %}" class="btn btn-outline-danger">
+              <i class="fa-solid fa-plus"></i>
+              Qo'shish
+            </a>
+            <h4 class="card-title">O'quvchilar</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Ismi
+                  </th>
+                  <th>
+                    Familiyasi
+                  </th>
+                  <th>
+                    Telefon raqami
+                  </th>
+                  <th>
+                    Jinsi
+                  </th>
+                  <th>
+                    Tug'ilgan sana
+                  </th>
+                </thead>
+                <tbody>
+                  {% for student in students  %}
+                  <tr>
+                    <td>
+                      {{ forloop.counter }}
+                    </td>
+                    <td>
+                      {{ student.first_name }}
+                    </td>
+                    <td>
+                      {{ student.last_name }}
+                    </td>
+                    <td>
+                      {{ student.phone }}
+                    </td>
+                    <td>
+                      {{ student.gender }}
+                    </td>
+                    <td>
+                      {{ student.birthday }}
+                    </td>
+                  </tr>
+                  {% endfor %}
+    
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

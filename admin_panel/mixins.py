@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
-from admin_panel.models import ADMIN
+from admin_panel.models import ADMIN, STUDENT, TEACHER
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from admin_panel.models import  User
 
 
 class IsAdminMixin(UserPassesTestMixin):
@@ -12,4 +13,7 @@ class IsAdminMixin(UserPassesTestMixin):
         if not self.request.user.is_authenticated:
             return redirect(reverse_lazy("admin_panel:login"))
         else:
-            return redirect(reverse_lazy('student_panel:page_404'))
+            if self.request.user.user_role == STUDENT:
+                return redirect(reverse_lazy('student_panel:dashboard'))
+            else:
+                return redirect(reverse_lazy('teacher_panel:dashboard'))

@@ -1,7 +1,7 @@
 from random import random
 
 from django import forms
-from .models import User, Payments
+from .models import User, Payments, STUDENT
 from django.core.exceptions import ValidationError
 
 
@@ -49,3 +49,6 @@ class PaymentsForm(forms.ModelForm):
     class Meta:
         model = Payments  
         fields = ('student', 'check_img',) 
+        
+class AddStudentToCourseForm(forms.Form):
+    students = forms.ModelMultipleChoiceField(label="Student", queryset=User.objects.filter(user_role=STUDENT).filter())
