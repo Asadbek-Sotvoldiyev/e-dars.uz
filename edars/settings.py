@@ -75,9 +75,9 @@ WSGI_APPLICATION = 'edars.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': "edarsuz",
+#         'NAME': "e-dars",
 #         'USER': 'postgres',
-#         'PASSWORD': '1234',
+#         'PASSWORD': '0204',
 #         'HOST': 'localhost',
 #         'PORT': 5432
 #     }

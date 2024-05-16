@@ -44,7 +44,7 @@ class CourseCategory(models.Model):
         return self.name
 
 
-class Course(BaseModel, models.Model):
+class Course(BaseModel):
     DAYS = (
         (ODD_DAYS, ODD_DAYS),
         (EVEN_DAYS, EVEN_DAYS)
@@ -60,7 +60,6 @@ class Course(BaseModel, models.Model):
         (RESULT, RESULT),
     )
 
-    
     name = models.CharField(max_length=50)
     lesson_day = models.CharField(max_length=15, choices=DAYS)
     lesson_time = models.CharField(max_length=30, choices=TIMES)
@@ -74,7 +73,7 @@ class Course(BaseModel, models.Model):
         return f"Course: {self.name}, Teacher: {self.teacher}"
 
 
-class Lesson(BaseModel, models.Model):
+class Lesson(BaseModel):
     name = models.CharField(max_length=100)
     video = models.FileField(upload_to='lesson_videos/', null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=["mp4", 'wmv'])])
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
@@ -83,7 +82,7 @@ class Lesson(BaseModel, models.Model):
         return self.name
 
 
-class Payments(BaseModel, models.Model):
+class Payments(BaseModel):
     TYPE = (
         (CASHE, CASHE),
         (CARD, CARD),
@@ -99,8 +98,7 @@ class Payments(BaseModel, models.Model):
     payment_type = models.CharField(max_length=50, null=False, blank=False, choices=TYPE, default=CARD)
     check_img = models.ImageField(upload_to='checks/', blank=True, null=True)
 
-    
-    status = models.CharField(null=False, blank=False, choices=STATUS, default=WAIT)
+    status = models.CharField(max_length=14, null=False, blank=False, choices=STATUS, default=WAIT)
     
     def __str__(self):
         return f"Id: {self.id}; Student: {self.student.first_name} {self.student.last_name}"
@@ -108,13 +106,13 @@ class Payments(BaseModel, models.Model):
     
 class PaymentsCheck(BaseModel, models.Model):
     STATUS = (
-        (WAIT,WAIT),
-        (PAID,PAID),
+        (WAIT, WAIT),
+        (PAID, PAID),
     )
     check_number = models.CharField(max_length=4, null=True, blank=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='paymentsCheck')
     check_img = models.ImageField(upload_to='checks/', blank=False, null=False)
-    status = models.CharField(max_length=30, blank=False, null=False, choices=STATUS, default=WAIT)
+    status = models.CharField(max_length=16, blank=False, null=False, choices=STATUS, default=WAIT)
 
     def __str__(self):
         return f"{self.id}: {self.student.first_name} {self.student.last_name} ({self.status})"

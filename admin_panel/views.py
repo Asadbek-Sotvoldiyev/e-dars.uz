@@ -7,16 +7,18 @@ from django.contrib.auth import authenticate, login, logout
 from .mixins import IsAdminMixin
 import random
 
+
 class AdminDashboardView(IsAdminMixin, View):
-    course_count = (Course.objects.all()).count()
-    student_count = (User.objects.filter(user_role=STUDENT)).count()
-    teacher_count = (User.objects.filter(user_role=TEACHER)).count()
+    course_count = Course.objects.all()
+    student_count = User.objects.filter(user_role=STUDENT)
+    teacher_count = User.objects.filter(user_role=TEACHER)
     data = {
         'course_count': course_count,
         'student_count': student_count,
         'teacher_count': teacher_count,
         'title': "Bosh sahifa",
     }
+
     def get(self, request):
         return render(request, 'admin_panel/index.html', {'title': "Bosh sahifa"} )
 
